@@ -6,6 +6,7 @@ import Home from './pages/Home.jsx';
 import SignUp from "./pages/SignUp.jsx";
 import Login from './pages/Login.jsx';
 import StudentDashboard from './pages/StudentDashboard.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 
 
 
@@ -19,9 +20,7 @@ function App() {
         <Route path="/signup/admin" element={<SignUp role={'admin'} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/student/dashboard" element={<StudentDashboard />} />
-
-
-
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
       </Routes>
     </>
