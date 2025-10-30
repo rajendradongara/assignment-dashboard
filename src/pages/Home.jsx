@@ -10,13 +10,13 @@ const Home = () => {
           </h1>
           <nav className="space-x-6">
             <a
-              href="/student/dashboard"
+              href="/signup/student"
               className="text-gray-600 hover:text-blue-600 font-medium"
             >
               Student
             </a>
             <a
-              href="/admin/dashboard"
+              href="/signup/admin"
               className="text-gray-600 hover:text-blue-600 font-medium"
             >
               Admin
