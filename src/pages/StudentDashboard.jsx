@@ -39,7 +39,7 @@ export default function StudentDashboard() {
     }
     const ok = confirmSubmissionForStudent(assignmentId, user.email);
     if (ok) {
-      loadAssignments(user.email); // refresh
+      loadAssignments(user.email);
       return true;
     }
     return false;
