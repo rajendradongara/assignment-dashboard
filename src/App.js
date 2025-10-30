@@ -1,12 +1,17 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
+
 import './App.css';
+import Home from './pages/Home.jsx';
+
 
 function App() {
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-900 text-white text-3xl font-bold">
-      Hello, Gotham 👋
-    </div>
+
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
+
   );
 }
 
-export default App;
+export default App; 
