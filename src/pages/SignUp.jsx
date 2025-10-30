@@ -26,7 +26,7 @@ const SignUp = ({ role }) => {
       return;
     }
 
-    const newUser = { ...formData, role }; // ✅ role set automatically, not from user input
+    const newUser = { ...formData, role };
     users.push(newUser);
     saveAllUsers(users);
 
