@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.jsx";
 
+import completedImg from "../assets/undraw_completed_0sqh.svg";
+
 export default function StudentDashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -76,13 +78,17 @@ export default function StudentDashboard() {
           </div>
         </div>
 
-        {/* 🔹 Not Submitted Section */}
         <section className="mb-8">
           <h3 className="text-xl font-semibold text-gray-700 mb-4">
             Pending Assignments
           </h3>
           {notSubmitted.length === 0 ? (
             <div className="bg-white p-6 rounded-lg shadow text-center text-gray-600">
+              <img
+                src={completedImg}
+                alt="TaskTrack Dashboard Illustration"
+                className="h-40 w-40 mx-auto mb-4"
+              />
               All caught up! No pending assignments.
             </div>
           ) : (
@@ -105,7 +111,7 @@ export default function StudentDashboard() {
           </h3>
           {submitted.length === 0 ? (
             <div className="bg-white p-6 rounded-lg shadow text-center text-gray-600">
-              You haven’t submitted any yet.
+              You haven't submitted any yet.
             </div>
           ) : (
             <div className="grid gap-4">

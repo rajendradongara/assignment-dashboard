@@ -17,8 +17,7 @@ function App() {
       <Toaster richColors position='bottom-right' />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signup/student" element={<SignUp role={'student'} />} />
-        <Route path="/signup/admin" element={<SignUp role={'admin'} />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/student/dashboard" element={<StudentDashboard />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />

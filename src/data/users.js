@@ -5,6 +5,7 @@ export const defaultUsers = [
         email: "student@gotham.edu",
         password: "student123",
         name: "Bruce Wayne",
+        profile: ''
     },
     {
         id: 2,
@@ -12,5 +13,6 @@ export const defaultUsers = [
         email: "admin@gotham.edu",
         password: "admin123",
         name: "Prof. Alfred Pennyworth",
+        profile: ''
     },
 ];

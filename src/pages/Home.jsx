@@ -2,46 +2,42 @@ import heroImage from "../assets/undraw_add-tasks_mvlb.svg";
 import { useNavigate } from "react-router-dom";
 
 import { getLoggedInUser } from "../utils/auth";
+import Navbar from "../components/Navbar.jsx";
 
 const Home = () => {
   const navigate = useNavigate();
-  const handleLogin = () => {
-    const user = getLoggedInUser();
-    if (user) {
+  const user = getLoggedInUser();
+
+  const handleStudentPortalButton = () => {
+    if (!user) {
+      navigate("/signup");
+    } else if (user && user.role === "student") {
       navigate("/student/dashboard");
     } else {
-      navigate("/login");
+      navigate("/signup");
+    }
+  };
+  const handleAdminPortalButton = () => {
+    if (!user) {
+      navigate("/signup");
+    } else if (user && user.role === "admin") {
+      navigate("/admin/dashboard");
+    } else {
+      navigate("/signup");
     }
   };
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
-      <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+      {/* <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <h1 className="text-3xl font-extrabold text-blue-700 tracking-tight">
             <a href="/">TaskTrack</a>
           </h1>
-          <nav className="flex items-center space-x-4">
-            <a
-              href="/signup/student"
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-700 transition"
-            >
-              Student Register
-            </a>
-            <a
-              href="/signup/admin"
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-700 transition"
-            >
-              Admin Register
-            </a>
-            <a
-              onClick={handleLogin}
-              className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
-            >
-              Login
-            </a>
-          </nav>
+          
         </div>
-      </header>
+      </header> */}
+
+      <Navbar user={user} />
 
       <main className="flex-grow flex flex-col md:flex-row items-center justify-center text-center md:text-left px-6 py-16 max-w-7xl mx-auto">
         <div className="md:w-1/2 space-y-6">
@@ -54,18 +50,18 @@ const Home = () => {
             dashboard. Because chaos doesn’t deserve your deadline.
           </p>
           <div className="space-x-4">
-            <a
-              href="/student/dashboard"
+            <button
+              onClick={handleStudentPortalButton}
               className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
             >
               Student Portal
-            </a>
-            <a
-              href="/admin/dashboard"
+            </button>
+            <button
+              onClick={handleAdminPortalButton}
               className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300 transition font-semibold"
             >
               Admin Portal
-            </a>
+            </button>
           </div>
         </div>
 
