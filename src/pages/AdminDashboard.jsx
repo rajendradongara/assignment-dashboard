@@ -8,6 +8,7 @@ import { getAllUsers } from "../utils/userStorage";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "../components/ProgressBar";
+import Navbar from "../components/Navbar";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -70,7 +71,6 @@ export default function AdminDashboard() {
     loadData(user.email);
   };
 
-  // calculate assignment progress (students who submitted)
   const getProgressForAssignment = (assignment) => {
     const totalStudents = students.length;
     if (totalStudents === 0) return 0;
@@ -79,25 +79,13 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 md:p-10">
-      <div className="max-w-6xl mx-auto space-y-8">
-        {/* Header */}
-        <header className="flex flex-col md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">Welcome, {user?.name}</h1>
-            <p className="text-gray-500 text-sm">
-              Manage assignments and track submissions.
-            </p>
-          </div>
-          <button
-            onClick={() => navigate("/")}
-            className="text-sm text-blue-600 hover:underline"
-          >
-            Logout
-          </button>
-        </header>
+    // <div className="min-h-screen bg-gray-50 p-6 md:p-10">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <Navbar user={user} />
 
-        {/* Create Assignment Form */}
+      {/* <div className="max-w-6xl mx-auto space-y-8">
+       */}
+      <div className="max-w-6xl mx-auto p-6 md:p-10">
         <section className="bg-white shadow rounded-lg p-6">
           <h2 className="text-lg font-semibold mb-4">Create New Assignment</h2>
           <form
@@ -145,7 +133,6 @@ export default function AdminDashboard() {
           </form>
         </section>
 
-        {/* Assignment List */}
         <section>
           <h2 className="text-xl font-semibold mb-4">Your Assignments</h2>
 

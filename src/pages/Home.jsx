@@ -1,6 +1,18 @@
-import React from "react";
 import heroImage from "../assets/undraw_add-tasks_mvlb.svg";
+import { useNavigate } from "react-router-dom";
+
+import { getLoggedInUser } from "../utils/auth";
+
 const Home = () => {
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    const user = getLoggedInUser();
+    if (user) {
+      navigate("/student/dashboard");
+    } else {
+      navigate("/login");
+    }
+  };
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
@@ -22,7 +34,7 @@ const Home = () => {
               Admin Register
             </a>
             <a
-              href="/login"
+              onClick={handleLogin}
               className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
             >
               Login

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getLoggedInUser } from "../utils/auth"; // your auth util that validates session
+import { getLoggedInUser } from "../utils/auth";
 import {
   getAssignmentsForStudent,
   confirmSubmissionForStudent,
@@ -9,6 +9,7 @@ import AssignmentCard from "../components/AssignmentCard";
 import ProgressBar from "../components/ProgressBar";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar.jsx";
 
 export default function StudentDashboard() {
   const navigate = useNavigate();
@@ -45,38 +46,78 @@ export default function StudentDashboard() {
     return false;
   };
 
+  const submitted = assignments.filter((a) =>
+    a.submissions.some(
+      (s) => s.userEmail === user.email && s.submitted === true
+    )
+  );
+
+  const notSubmitted = assignments.filter(
+    (a) => !a.submissions.some((s) => s.userEmail === user.email)
+  );
+
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
-        <header className="flex items-center justify-between mb-6">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <Navbar user={user} />
+
+      <div className="max-w-6xl mx-auto p-6 md:p-10">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold">
+            <h2 className="text-3xl font-bold text-gray-800">
               Hello, {user?.name || "Student"}
-            </h1>
-            <p className="text-sm text-gray-500">
-              Overview of your assignments
-            </p>
+            </h2>
+            <p className="text-gray-500">Here’s your assignment overview</p>
           </div>
-          <div className="w-56">
+
+          <div className="w-56 mt-4 md:mt-0">
             <p className="text-xs text-gray-500 mb-1">Overall Progress</p>
             <ProgressBar percent={progress} />
             <p className="text-sm text-gray-600 mt-2">{progress}% completed</p>
           </div>
-        </header>
+        </div>
 
-        <section className="grid gap-4">
-          {assignments.length === 0 && (
-            <div className="bg-white p-6 rounded shadow text-center text-gray-600">
-              No assignments yet.
+        {/* 🔹 Not Submitted Section */}
+        <section className="mb-8">
+          <h3 className="text-xl font-semibold text-gray-700 mb-4">
+            Pending Assignments
+          </h3>
+          {notSubmitted.length === 0 ? (
+            <div className="bg-white p-6 rounded-lg shadow text-center text-gray-600">
+              All caught up! No pending assignments.
+            </div>
+          ) : (
+            <div className="grid gap-4">
+              {notSubmitted.map((a) => (
+                <AssignmentCard
+                  key={a.id}
+                  assignment={a}
+                  onConfirm={handleConfirm}
+                />
+              ))}
             </div>
           )}
-          {assignments.map((a) => (
-            <AssignmentCard
-              key={a.id}
-              assignment={a}
-              onConfirm={handleConfirm}
-            />
-          ))}
+        </section>
+
+        {/* 🔹 Submitted Section */}
+        <section>
+          <h3 className="text-xl font-semibold text-gray-700 mb-4">
+            Submitted Assignments
+          </h3>
+          {submitted.length === 0 ? (
+            <div className="bg-white p-6 rounded-lg shadow text-center text-gray-600">
+              You haven’t submitted any yet.
+            </div>
+          ) : (
+            <div className="grid gap-4">
+              {submitted.map((a) => (
+                <AssignmentCard
+                  key={a.id}
+                  assignment={a}
+                  onConfirm={handleConfirm}
+                />
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </div>
