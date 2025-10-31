@@ -26,6 +26,15 @@ const Home = () => {
       navigate("/signup");
     }
   };
+  const handleDashboardButton = () => {
+    if (!user) {
+      navigate("/signup");
+    } else if (user) {
+      navigate(`/${user?.role}/dashboard`);
+    } else {
+      navigate("/signup");
+    }
+  };
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       {/* <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
@@ -50,18 +59,30 @@ const Home = () => {
             dashboard. Because chaos doesn’t deserve your deadline.
           </p>
           <div className="space-x-4">
-            <button
-              onClick={handleStudentPortalButton}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
-            >
-              Student Portal
-            </button>
-            <button
-              onClick={handleAdminPortalButton}
-              className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300 transition font-semibold"
-            >
-              Admin Portal
-            </button>
+            {user && (
+              <button
+                onClick={handleDashboardButton}
+                className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300 transition font-semibold"
+              >
+                Dashboard
+              </button>
+            )}
+            {!user && (
+              <>
+                <button
+                  onClick={handleStudentPortalButton}
+                  className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
+                >
+                  Student Portal
+                </button>
+                <button
+                  onClick={handleAdminPortalButton}
+                  className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300 transition font-semibold"
+                >
+                  Admin Portal
+                </button>
+              </>
+            )}
           </div>
         </div>
 

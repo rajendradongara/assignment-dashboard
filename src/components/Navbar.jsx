@@ -39,12 +39,20 @@ const Navbar = ({ user }) => {
   return (
     <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <h1
-          className="text-2xl font-extrabold text-blue-700 tracking-tight cursor-pointer"
+        <div
+          className="flex items-center space-x-3 cursor-pointer"
           onClick={() => navigate("/")}
         >
-          TaskTrack
-        </h1>
+          <img
+            src="/tasktrack-logo.png"
+            alt="TaskTrack Logo"
+            className="w-8 h-8 rounded-full object-cover"
+          />
+          <h1 className="text-2xl font-extrabold text-blue-700 tracking-tight cursor-pointer">
+            TaskTrack
+          </h1>
+        </div>
+
         {user ? (
           <div className="relative flex items-center space-x-3">
             <span className="text-gray-700 font-medium">
@@ -84,23 +92,21 @@ const Navbar = ({ user }) => {
             )}
           </div>
         ) : (
-          <>
-            <nav className="flex items-center space-x-4">
-              <button
-                onClick={handleSignup}
-                className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
-              >
-                Register
-              </button>
+          <nav className="flex items-center space-x-4">
+            <button
+              onClick={handleSignup}
+              className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
+            >
+              Register
+            </button>
 
-              <button
-                onClick={handleLogin}
-                className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
-              >
-                Login
-              </button>
-            </nav>
-          </>
+            <button
+              onClick={handleLogin}
+              className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
+            >
+              Login
+            </button>
+          </nav>
         )}
       </div>
     </header>

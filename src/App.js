@@ -8,6 +8,7 @@ import SignUp from "./pages/SignUp.jsx";
 import Login from './pages/Login.jsx';
 import StudentDashboard from './pages/StudentDashboard.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
+import PageTitleManager from './components/PageTitle.jsx';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
       <Toaster richColors position='bottom-right' />
+      <PageTitleManager />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
