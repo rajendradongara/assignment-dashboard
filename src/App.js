@@ -9,6 +9,8 @@ import Login from './pages/Login.jsx';
 import StudentDashboard from './pages/StudentDashboard.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import PageTitleManager from './components/PageTitle.jsx';
+import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
       <PageTitleManager />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/student/dashboard" element={<StudentDashboard />} />

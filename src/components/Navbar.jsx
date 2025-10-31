@@ -32,7 +32,7 @@ const Navbar = ({ user }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    // onLogout?.();
+
     navigate("/");
   };
 
@@ -53,6 +53,24 @@ const Navbar = ({ user }) => {
           </h1>
         </div>
 
+        <nav className="hidden md:flex items-center space-x-6 text-gray-700 font-medium">
+          <button onClick={() => navigate("/")} className="hover:text-blue-600">
+            Home
+          </button>
+          <button
+            onClick={() => navigate("/about")}
+            className="hover:text-blue-600"
+          >
+            About
+          </button>
+          <button
+            onClick={() => navigate("/contact")}
+            className="hover:text-blue-600"
+          >
+            Contact
+          </button>
+        </nav>
+
         {user ? (
           <div className="relative flex items-center space-x-3">
             <span className="text-gray-700 font-medium">
@@ -63,9 +81,6 @@ const Navbar = ({ user }) => {
               className="flex items-center space-x-1 cursor-pointer"
               onClick={() => setDropdownOpen((prev) => !prev)}
             >
-              {/* <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold">
-                {user?.name ? user.name.charAt(0).toUpperCase() : "S"}
-              </div> */}
               <img
                 src={user?.profile}
                 alt="profile"
@@ -96,8 +111,8 @@ const Navbar = ({ user }) => {
             <button
               onClick={handleSignup}
               className="relative px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold
-               shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-800
-               transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+           shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-800
+           transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
             >
               <span className="relative z-10">Register</span>
             </button>
@@ -105,8 +120,8 @@ const Navbar = ({ user }) => {
             <button
               onClick={handleLogin}
               className="relative px-5 py-2.5 rounded-xl border border-blue-500 text-blue-600 font-semibold
-               hover:bg-blue-600 hover:text-white hover:shadow-lg
-               transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+           hover:bg-blue-600 hover:text-white hover:shadow-lg
+           transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
             >
               <span className="relative z-10">Login</span>
             </button>
