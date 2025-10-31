@@ -95,16 +95,20 @@ const Navbar = ({ user }) => {
           <nav className="flex items-center space-x-4">
             <button
               onClick={handleSignup}
-              className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
+              className="relative px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold
+               shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-800
+               transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
             >
-              Register
+              <span className="relative z-10">Register</span>
             </button>
 
             <button
               onClick={handleLogin}
-              className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
+              className="relative px-5 py-2.5 rounded-xl border border-blue-500 text-blue-600 font-semibold
+               hover:bg-blue-600 hover:text-white hover:shadow-lg
+               transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
             >
-              Login
+              <span className="relative z-10">Login</span>
             </button>
           </nav>
         )}
