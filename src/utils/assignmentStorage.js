@@ -39,7 +39,8 @@ export const getAssignmentsForStudent = (studentEmail) => {
 };
 
 
-export const confirmSubmissionForStudent = (assignmentId, studentEmail) => {
+export const confirmSubmissionForStudent = (assignmentId, studentEmail, fileName, fileUrl) => {
+    console.log(fileName, fileUrl)
     const all = getAllAssignments();
     const idx = all.findIndex((a) => a.id === assignmentId);
     if (idx === -1) return false;
@@ -48,10 +49,12 @@ export const confirmSubmissionForStudent = (assignmentId, studentEmail) => {
     const now = new Date().toISOString();
     if (subIdx === -1) {
         a.submissions = a.submissions || [];
-        a.submissions.push({ userEmail: studentEmail, submitted: true, submittedAt: now });
+        a.submissions.push({ userEmail: studentEmail, submitted: true, submittedAt: now, fileName: fileName, fileUrl: fileUrl });
     } else {
         a.submissions[subIdx].submitted = true;
         a.submissions[subIdx].submittedAt = now;
+        a.submissions[subIdx].fileName = fileName;
+        a.submissions[subIdx].fileUrl = fileUrl;
     }
     all[idx] = a;
     saveAllAssignments(all);

@@ -13,6 +13,7 @@ import PageTitleManager from './components/PageTitle.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import { loadInitialData } from './utils/loadData.js';
+import { FileProvider } from './context/FileContext.js';
 
 
 function App() {
@@ -22,17 +23,19 @@ function App() {
 
   return (
     <>
-      <Toaster richColors position='bottom-right' />
-      <PageTitleManager />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/student/dashboard" element={<StudentDashboard />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-      </Routes>
+      <FileProvider>
+        <Toaster richColors position='bottom-right' />
+        <PageTitleManager />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/student/dashboard" element={<StudentDashboard />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Routes>
+      </FileProvider>
     </>
 
   );

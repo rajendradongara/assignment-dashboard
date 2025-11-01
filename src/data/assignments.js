@@ -8,7 +8,13 @@ export const defaultAssignments = [
         createdBy: "alfred@gotham.edu",
         driveLink: "",
         submissions: [
-            // sample: { userEmail: "student@gotham.edu", submitted: false, submittedAt: null }
+            /* {
+               "userEmail": "peter@gotham.edu",
+               "submitted": true,
+               "submittedAt": "2025-10-30T14:22:00Z",
+               "fileUrl": "blob:https://...",
+               "fileName": "ReactBasics_PeterParker.pdf"
+            */
         ],
     },
     {

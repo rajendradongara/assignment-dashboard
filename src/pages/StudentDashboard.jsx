@@ -14,12 +14,15 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.jsx";
 
 import completedImg from "../assets/undraw_completed_0sqh.svg";
+import { useFile } from "../context/FileContext.js";
 
 export default function StudentDashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [assignments, setAssignments] = useState([]);
   const [progress, setProgress] = useState(0);
+  const { uploadedFile } = useFile();
+  console.log(uploadedFile);
 
   useEffect(() => {
     const u = getLoggedInUser();
@@ -42,12 +45,26 @@ export default function StudentDashboard() {
       toast.error("You must be logged in");
       return false;
     }
-    const ok = confirmSubmissionForStudent(assignmentId, user.email);
-    if (ok) {
-      loadAssignments(user.email);
-      return true;
+
+    if (uploadedFile) {
+      const url = URL.createObjectURL(uploadedFile);
+      const fileUrl = url.slice(5);
+      console.log(fileUrl);
+      const fileName = uploadedFile?.name || `assignment_by_${user.name}`;
+      const ok = confirmSubmissionForStudent(
+        assignmentId,
+        user.email,
+        fileName,
+        fileUrl
+      );
+
+      if (ok) {
+        toast.success("Assignment submitted successfully");
+        loadAssignments(user.email);
+        return true;
+      }
+      return false;
     }
-    return false;
   };
 
   const submittedAssignments = getSubmittedAssignments(assignments, user);
@@ -114,7 +131,7 @@ export default function StudentDashboard() {
                 <AssignmentCard
                   key={a.id}
                   assignment={a}
-                  onConfirm={handleConfirm}
+                  onConfirm={handleConfirm()}
                 />
               ))}
             </div>

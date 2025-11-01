@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 import { getLoggedInUser } from "../utils/auth.js";
 import {
@@ -16,7 +18,6 @@ export default function AdminDashboard() {
   const students = getAllStudents();
   const [user, setUser] = useState(null);
   const [assignments, setAssignments] = useState([]);
-
   const [newAssignment, setNewAssignment] = useState({
     title: "",
     description: "",
@@ -153,79 +154,105 @@ export default function AdminDashboard() {
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
-            {assignments.map((a) => (
-              <div
-                key={a.id}
-                className="bg-white shadow rounded-lg p-6 cursor-pointer hover:shadow-md transition"
-                onClick={() =>
-                  setExpandedAssignment((prev) => (prev === a.id ? null : a.id))
-                }
-              >
-                <div className="flex flex-col space-y-2 mb-3">
-                  <h3 className="text-lg font-bold text-blue-700">{a.title}</h3>
-                  <p className="text-sm text-gray-600 line-clamp-2">
-                    {a.description}
-                  </p>
-                  <p className="text-xs text-gray-400">Due: {a.dueDate}</p>
-                </div>
-
-                <div className="w-full">
-                  <p className="text-xs text-gray-500 mb-1">
-                    {getProgressForAssignment(a)}% Submitted
-                  </p>
-                  <ProgressBar percent={getProgressForAssignment(a)} />
-                </div>
-
-                {expandedAssignment === a.id && (
-                  <div className="mt-4 border-t pt-4 animate-fadeIn">
-                    <h4 className="text-sm font-semibold mb-2">Submissions</h4>
-                    <div className="overflow-x-auto">
-                      <table className="min-w-full text-sm border border-gray-200 rounded-lg">
-                        <thead className="bg-gray-100">
-                          <tr>
-                            <th className="text-left p-2 border">Student</th>
-                            <th className="text-left p-2 border">Email</th>
-                            <th className="text-center p-2 border">Status</th>
-                            <th className="text-center p-2 border">
-                              Submitted At
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {students.map((stu) => {
-                            const sub = a.submissions.find(
-                              (s) => s.userEmail === stu.email
-                            );
-                            const submitted = sub?.submitted || false;
-                            const time = sub?.submittedAt
-                              ? new Date(sub.submittedAt).toLocaleString()
-                              : "-";
-                            return (
-                              <tr key={stu.email}>
-                                <td className="p-2 border">{stu.name}</td>
-                                <td className="p-2 border">{stu.email}</td>
-                                <td
-                                  className={`p-2 text-center border font-semibold ${
-                                    submitted
-                                      ? "text-green-600"
-                                      : "text-gray-400"
-                                  }`}
-                                >
-                                  {submitted ? "Submitted" : "Pending"}
-                                </td>
-                                <td className="p-2 text-center border text-gray-500">
-                                  {time}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
+            {assignments.map((a) => {
+              const isExpanded = expandedAssignment === a.id;
+              return (
+                <div
+                  key={a.id}
+                  className="bg-white shadow rounded-lg p-6 transition hover:shadow-md"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex flex-col space-y-1">
+                      <h3 className="text-lg font-bold text-blue-700">
+                        {a.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 line-clamp-2">
+                        {a.description}
+                      </p>
+                      <p className="text-xs text-gray-400">Due: {a.dueDate}</p>
+                      <a
+                        href={a.driveLink}
+                        className="text-sm text-blue-600 hover:underline inline-block mt-2"
+                      >
+                        Drive Link
+                      </a>
                     </div>
+
+                    <button
+                      onClick={() =>
+                        setExpandedAssignment(isExpanded ? null : a.id)
+                      }
+                      className="p-2 rounded-full hover:bg-gray-100 transition"
+                    >
+                      <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className={`text-gray-600 transform transition-transform duration-200 ${
+                          isExpanded ? "rotate-180" : "rotate-0"
+                        }`}
+                      />
+                    </button>
                   </div>
-                )}
-              </div>
-            ))}
+
+                  <div className="w-full">
+                    <p className="text-xs text-gray-500 mb-1">
+                      {getProgressForAssignment(a)}% Submitted
+                    </p>
+                    <ProgressBar percent={getProgressForAssignment(a)} />
+                  </div>
+
+                  {isExpanded && (
+                    <div className="mt-4 border-t pt-4 animate-fadeIn">
+                      <h4 className="text-sm font-semibold mb-2">
+                        Submissions
+                      </h4>
+                      <div className="overflow-x-auto">
+                        <table className="min-w-full text-sm border border-gray-200 rounded-lg">
+                          <thead className="bg-gray-100">
+                            <tr>
+                              <th className="text-left p-2 border">Student</th>
+                              <th className="text-left p-2 border">Email</th>
+                              <th className="text-center p-2 border">Status</th>
+                              <th className="text-center p-2 border">
+                                Submitted At
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {students.map((stu) => {
+                              const sub = a.submissions.find(
+                                (s) => s.userEmail === stu.email
+                              );
+                              const submitted = sub?.submitted || false;
+                              const time = sub?.submittedAt
+                                ? new Date(sub.submittedAt).toLocaleString()
+                                : "-";
+                              return (
+                                <tr key={stu.email}>
+                                  <td className="p-2 border">{stu.name}</td>
+                                  <td className="p-2 border">{stu.email}</td>
+                                  <td
+                                    className={`p-2 text-center border font-semibold ${
+                                      submitted
+                                        ? "text-green-600"
+                                        : "text-gray-400"
+                                    }`}
+                                  >
+                                    {submitted ? "Submitted" : "Pending"}
+                                  </td>
+                                  <td className="p-2 text-center border text-gray-500">
+                                    {time}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

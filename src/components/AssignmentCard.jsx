@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 import ConfirmationModal from "./ConfirmationModal";
+import FileUploadModal from "./FileUploadModal.jsx";
 import { getAllUsers } from "../utils/userStorage.js";
 
 export default function AssignmentCard({ assignment, onConfirm }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [upload, setUpload] = useState(false);
 
   const { studentSubmission } = assignment;
   const submitted = studentSubmission?.submitted;
 
   const users = getAllUsers();
   const admin = users.find((u) => u.email === assignment.createdBy);
-  console.log(admin);
 
   const handleFirstClick = () => {
     setModalOpen(true);
@@ -71,6 +72,17 @@ export default function AssignmentCard({ assignment, onConfirm }) {
 
         <div className="flex gap-2">
           <button
+            onClick={() => setUpload(true)}
+            disabled={submitted}
+            className={`px-3 py-2 rounded-md ${
+              submitted
+                ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                : "bg-blue-600 text-white hover:bg-blue-700"
+            }`}
+          >
+            Upload
+          </button>
+          <button
             onClick={handleFirstClick}
             disabled={submitted}
             className={`px-3 py-2 rounded-md ${
@@ -83,6 +95,7 @@ export default function AssignmentCard({ assignment, onConfirm }) {
           </button>
         </div>
       </div>
+      <FileUploadModal open={upload} onClose={() => setUpload(false)} />
 
       <ConfirmationModal
         open={modalOpen}
