@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { getLoggedInUser } from "../utils/auth";
-import {
-  getAllAssignments,
-  saveAllAssignments,
-} from "../utils/assignmentStorage";
-import { getAllUsers } from "../utils/userStorage";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import ProgressBar from "../components/ProgressBar";
-import Navbar from "../components/Navbar";
+
+import { getLoggedInUser } from "../utils/auth.js";
+import {
+  createNewAssignment,
+  getAllAssignments,
+} from "../utils/assignmentStorage.js";
+import { getAllStudents } from "../utils/userStorage.js";
+import ProgressBar from "../components/ProgressBar.jsx";
+import Navbar from "../components/Navbar.jsx";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+  const students = getAllStudents();
   const [user, setUser] = useState(null);
   const [assignments, setAssignments] = useState([]);
-  const [students, setStudents] = useState([]);
+
   const [newAssignment, setNewAssignment] = useState({
     title: "",
     description: "",
@@ -37,9 +39,6 @@ export default function AdminDashboard() {
   function loadData(adminEmail) {
     const all = getAllAssignments();
     setAssignments(all.filter((a) => a.createdBy === adminEmail));
-
-    const allUsers = getAllUsers();
-    setStudents(allUsers.filter((u) => u.role === "student"));
   }
 
   const handleInputChange = (e) => {
@@ -49,28 +48,21 @@ export default function AdminDashboard() {
 
   const handleCreateAssignment = (e) => {
     e.preventDefault();
-    if (!newAssignment.title || !newAssignment.dueDate) {
-      toast.error("Title and due date are required.");
-      return;
-    }
 
-    const all = getAllAssignments();
-    const newA = {
-      id: `a_${Date.now()}`,
-      ...newAssignment,
-      createdBy: user.email,
-      submissions: [],
-    };
-    all.push(newA);
-    saveAllAssignments(all);
-    toast.success("Assignment created successfully!");
-    setNewAssignment({
-      title: "",
-      description: "",
-      dueDate: "",
-      driveLink: "",
-    });
-    loadData(user.email);
+    const result = createNewAssignment(newAssignment, user);
+    if (result.success) {
+      toast.success("Assignment created successfully");
+      loadData(user.email);
+
+      setNewAssignment({
+        title: "",
+        description: "",
+        dueDate: "",
+        driveLink: "",
+      });
+    } else {
+      toast.error(result.message);
+    }
   };
 
   const getProgressForAssignment = (assignment) => {

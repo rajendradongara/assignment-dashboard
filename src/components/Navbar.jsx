@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = ({ user }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const path = location.pathname;
 
   const handleLogin = () => {
     if (!user) {
@@ -54,18 +57,44 @@ const Navbar = ({ user }) => {
         </div>
 
         <nav className="hidden md:flex items-center space-x-6 text-gray-700 font-medium">
-          <button onClick={() => navigate("/")} className="hover:text-blue-600">
+          <button
+            onClick={() => navigate("/")}
+            className={`hover:text-blue-600 ${
+              path === "/" ? "text-blue-700 font-bold" : "text-gray-700"
+            }`}
+          >
             Home
           </button>
+          {user && (
+            <button
+              onClick={() => navigate(`/${user?.role}/dashboard`)}
+              className={`hover:text-blue-600 ${
+                path.endsWith("dashboard")
+                  ? "text-blue-700 font-bold"
+                  : "text-gray-700"
+              }`}
+            >
+              Dashboard
+            </button>
+          )}
+
           <button
             onClick={() => navigate("/about")}
-            className="hover:text-blue-600"
+            className={`hover:text-blue-600 ${
+              path.endsWith("about")
+                ? "text-blue-700 font-bold"
+                : "text-gray-700"
+            }`}
           >
             About
           </button>
           <button
             onClick={() => navigate("/contact")}
-            className="hover:text-blue-600"
+            className={`hover:text-blue-600 ${
+              path.endsWith("contact")
+                ? "text-blue-700 font-bold"
+                : "text-gray-700"
+            }`}
           >
             Contact
           </button>

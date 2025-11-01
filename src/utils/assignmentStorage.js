@@ -2,7 +2,7 @@
 import { defaultAssignments } from "../data/assignments";
 
 
-const STORAGE_KEY = "assignments_v1";
+const STORAGE_KEY = "assignments";
 
 export const getAllAssignments = () => {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -32,8 +32,10 @@ export const getAssignmentsForStudent = (studentEmail) => {
             submitted: false,
             submittedAt: null,
         };
+
         return { ...a, studentSubmission: sub };
     });
+
 };
 
 
@@ -67,3 +69,42 @@ export const computeOverallProgress = (studentEmail) => {
     }, 0);
     return Math.round((done / total) * 100);
 };
+
+
+export const createNewAssignment = (newAssignment, user) => {
+    if (!newAssignment.title || !newAssignment.dueDate) {
+        return { success: false, message: 'Title and Due date are required.' }
+    }
+
+    const all = getAllAssignments();
+    const newA = {
+        id: `a_${Date.now()}`,
+        ...newAssignment,
+        createdBy: user.email,
+        submissions: [],
+    };
+    all.push(newA);
+    saveAllAssignments(all);
+    return { success: true, newA }
+}
+
+
+export const getSubmittedAssignments = (assignments, user) => {
+    const submittedAssinments = assignments.filter((a) =>
+        a.submissions.some(
+            (s) => s.userEmail === user.email && s.submitted === true
+        )
+    )
+    return submittedAssinments
+
+}
+
+
+export const getPendingAssignments = (assignments, user) => {
+    const pendingAssignments = assignments.filter(
+        (a) => !a.submissions.some((s) => s.userEmail === user.email)
+    );
+    return pendingAssignments
+
+}
+

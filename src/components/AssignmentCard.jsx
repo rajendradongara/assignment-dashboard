@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "sonner";
+
 import ConfirmationModal from "./ConfirmationModal";
 import { getAllUsers } from "../utils/userStorage.js";
 
@@ -10,8 +11,8 @@ export default function AssignmentCard({ assignment, onConfirm }) {
   const submitted = studentSubmission?.submitted;
 
   const users = getAllUsers();
-
   const admin = users.find((u) => u.email === assignment.createdBy);
+  console.log(admin);
 
   const handleFirstClick = () => {
     setModalOpen(true);
@@ -32,7 +33,7 @@ export default function AssignmentCard({ assignment, onConfirm }) {
         <h4 className="text-lg font-semibold">{assignment.title}</h4>
         <p className="text-sm text-gray-500 mb-2">{assignment.description}</p>
         <p className="text-xs text-red-600">Due: {assignment.dueDate}</p>
-        <p className="text-xs text-gray-900">From: {admin.name}</p>
+        <p className="text-xs text-gray-900">From: {admin?.name}</p>
         {assignment.driveLink && (
           <a
             className="text-sm text-blue-600 hover:underline inline-block mt-2"

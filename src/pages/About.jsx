@@ -1,8 +1,8 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar.jsx";
+import { getLoggedInUser } from "../utils/auth.js";
 
 const About = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = getLoggedInUser();
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <Navbar user={user} />

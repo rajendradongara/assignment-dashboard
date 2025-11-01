@@ -1,7 +1,8 @@
 import Navbar from "../components/Navbar";
+import { getLoggedInUser } from "../utils/auth";
 
 const Contact = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = getLoggedInUser();
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <Navbar user={user} />

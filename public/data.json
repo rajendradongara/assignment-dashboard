@@ -1,0 +1,180 @@
+{
+  "users": [
+    {
+      "name": "Alfred Pennyworth",
+      "email": "alfred@gotham.edu",
+      "password": "admin123",
+      "role": "admin",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=AlfredPennyworth"
+    },
+    {
+      "name": "Jarvis",
+      "email": "jarvis@gotham.edu",
+      "password": "admin123",
+      "role": "admin",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=Jarvis"
+    },
+    {
+      "name": "Bruce Wayne",
+      "email": "bruce@gotham.edu",
+      "password": "student123",
+      "role": "student",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=BruceWayne"
+    },
+    {
+      "name": "Clark Kent",
+      "email": "clark@gotham.edu",
+      "password": "student123",
+      "role": "student",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=ClarkKent"
+    },
+    {
+      "name": "Diana Prince",
+      "email": "diana@gotham.edu",
+      "password": "student123",
+      "role": "student",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=DianaPrince"
+    },
+    {
+      "name": "Barry Allen",
+      "email": "barry@gotham.edu",
+      "password": "student123",
+      "role": "student",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=BarryAllen"
+    },
+    {
+      "name": "Arthur Curry",
+      "email": "arthur@gotham.edu",
+      "password": "student123",
+      "role": "student",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=ArthurCurry"
+    },
+    {
+      "name": "Natasha Romanoff",
+      "email": "natasha@gotham.edu",
+      "password": "student123",
+      "role": "student",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=NatashaRomanoff"
+    },
+    {
+      "name": "Peter Parker",
+      "email": "peter@gotham.edu",
+      "password": "student123",
+      "role": "student",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=PeterParker"
+    },
+    {
+      "name": "Tony Stark",
+      "email": "tony@gotham.edu",
+      "password": "student123",
+      "role": "student",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=TonyStark"
+    },
+    {
+      "name": "Steve Rogers",
+      "email": "steve@gotham.edu",
+      "password": "student123",
+      "role": "student",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=SteveRogers"
+    },
+    {
+      "name": "Wanda Maximoff",
+      "email": "wanda@gotham.edu",
+      "password": "student123",
+      "role": "student",
+      "profile": "https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=WandaMaximoff"
+    }
+  ],
+  "assignments": [
+    {
+      "id": "A1",
+      "title": "AI Lab Report",
+      "description": "Write and submit a detailed report on image classification techniques.",
+      "dueDate": "2025-11-10",
+      "createdBy": "alfred@gotham.edu",
+      "driveLink": "",
+      "submissions": []
+    },
+    {
+      "id": "A2",
+      "title": "Network Security Report",
+      "description": "Analyze and document potential vulnerabilities in a sample network.",
+      "dueDate": "2025-11-15",
+      "createdBy": "alfred@gotham.edu",
+      "driveLink": "",
+      "submissions": []
+    },
+    {
+      "id": "A3",
+      "title": "Web Development Project",
+      "description": "Develop a mini project using React and Tailwind CSS.",
+      "dueDate": "2025-11-20",
+      "createdBy": "alfred@gotham.edu",
+      "driveLink": "",
+      "submissions": []
+    },
+    {
+      "id": "A4",
+      "title": "Data Structures Assignment",
+      "description": "Implement and analyze different sorting algorithms.",
+      "dueDate": "2025-11-25",
+      "createdBy": "alfred@gotham.edu",
+      "driveLink": "",
+      "submissions": []
+    },
+    {
+      "id": "A5",
+      "title": "Cyber Forensics Case Study",
+      "description": "Investigate a simulated digital crime using forensic tools.",
+      "dueDate": "2025-12-01",
+      "createdBy": "alfred@gotham.edu",
+      "driveLink": "",
+      "submissions": []
+    },
+    {
+      "id": "A6",
+      "title": "Machine Learning Model Evaluation",
+      "description": "Train a simple classifier and compare performance metrics.",
+      "dueDate": "2025-11-12",
+      "createdBy": "jarvis@gotham.edu",
+      "driveLink": "",
+      "submissions": []
+    },
+    {
+      "id": "A7",
+      "title": "Database Design Task",
+      "description": "Design ER diagrams and normalize the given schema.",
+      "dueDate": "2025-11-18",
+      "createdBy": "jarvis@gotham.edu",
+      "driveLink": "",
+      "submissions": []
+    },
+    {
+      "id": "A8",
+      "title": "Operating System Scheduling",
+      "description": "Simulate CPU scheduling algorithms in code.",
+      "dueDate": "2025-11-22",
+      "createdBy": "jarvis@gotham.edu",
+      "driveLink": "",
+      "submissions": []
+    },
+    {
+      "id": "A9",
+      "title": "Ethical Hacking Report",
+      "description": "Perform a vulnerability assessment on a test web app.",
+      "dueDate": "2025-11-27",
+      "createdBy": "jarvis@gotham.edu",
+      "driveLink": "",
+      "submissions": []
+    },
+    {
+      "id": "A10",
+      "title": "Cloud Deployment Task",
+      "description": "Deploy a simple web app on any cloud platform and report findings.",
+      "dueDate": "2025-12-05",
+      "createdBy": "jarvis@gotham.edu",
+      "driveLink": "",
+      "submissions": []
+    }
+  ]
+}

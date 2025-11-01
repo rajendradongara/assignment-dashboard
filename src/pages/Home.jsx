@@ -1,6 +1,6 @@
-import heroImage from "../assets/undraw_add-tasks_mvlb.svg";
 import { useNavigate } from "react-router-dom";
 
+import heroImage from "../assets/undraw_add-tasks_mvlb.svg";
 import { getLoggedInUser } from "../utils/auth";
 import Navbar from "../components/Navbar.jsx";
 
@@ -8,44 +8,18 @@ const Home = () => {
   const navigate = useNavigate();
   const user = getLoggedInUser();
 
-  const handleStudentPortalButton = () => {
+  const handlePortalButton = (role) => {
     if (!user) {
       navigate("/signup");
-    } else if (user && user.role === "student") {
-      navigate("/student/dashboard");
+    } else if (user.role === role) {
+      navigate(`/${role}/dashboard`);
     } else {
       navigate("/signup");
     }
   };
-  const handleAdminPortalButton = () => {
-    if (!user) {
-      navigate("/signup");
-    } else if (user && user.role === "admin") {
-      navigate("/admin/dashboard");
-    } else {
-      navigate("/signup");
-    }
-  };
-  const handleDashboardButton = () => {
-    if (!user) {
-      navigate("/signup");
-    } else if (user) {
-      navigate(`/${user?.role}/dashboard`);
-    } else {
-      navigate("/signup");
-    }
-  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
-      {/* <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-3xl font-extrabold text-blue-700 tracking-tight">
-            <a href="/">TaskTrack</a>
-          </h1>
-          
-        </div>
-      </header> */}
-
       <Navbar user={user} />
 
       <main className="flex-grow flex flex-col md:flex-row items-center justify-center text-center md:text-left px-6 py-16 max-w-7xl mx-auto">
@@ -61,22 +35,31 @@ const Home = () => {
           <div className="space-x-4">
             {user && (
               <button
-                onClick={handleDashboardButton}
-                className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300 transition font-semibold"
+                onClick={() => handlePortalButton(user?.role)}
+                className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-blue-600 hover:text-white hover:shadow-lg transition font-semibold"
               >
                 Dashboard
               </button>
             )}
+            {user?.role === "admin" && (
+              <button
+                onClick={() => navigate("/signup")}
+                className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-blue-600 hover:text-white hover:shadow-lg transition font-semibold"
+              >
+                Add Faculty
+              </button>
+            )}
+
             {!user && (
               <>
                 <button
-                  onClick={handleStudentPortalButton}
+                  onClick={() => handlePortalButton("student")}
                   className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition font-semibold"
                 >
                   Student Portal
                 </button>
                 <button
-                  onClick={handleAdminPortalButton}
+                  onClick={() => handlePortalButton("admin")}
                   className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300 transition font-semibold"
                 >
                   Admin Portal
@@ -102,7 +85,7 @@ const Home = () => {
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/rajendradongara/"
               target="_blank"
               rel="noreferrer"
               className="hover:text-white transition"
@@ -110,7 +93,7 @@ const Home = () => {
               <i className="fab fa-linkedin text-lg"></i>
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/rajendradongara/"
               target="_blank"
               rel="noreferrer"
               className="hover:text-white transition"

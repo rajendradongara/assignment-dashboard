@@ -3,11 +3,9 @@ import { useLocation } from "react-router-dom";
 
 const PageTitleManager = () => {
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     const path = location.pathname;
-    console.log(path);
 
     let title = "TaskTrack";
 

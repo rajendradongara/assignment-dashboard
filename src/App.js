@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Toaster } from 'sonner';
+import { useEffect } from 'react';
 
 import './App.css';
 import Home from './pages/Home.jsx';
@@ -11,9 +12,13 @@ import AdminDashboard from './pages/AdminDashboard.jsx';
 import PageTitleManager from './components/PageTitle.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
+import { loadInitialData } from './utils/loadData.js';
 
 
 function App() {
+  useEffect(() => {
+    loadInitialData();
+  }, []);
 
   return (
     <>

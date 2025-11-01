@@ -4,6 +4,8 @@ import {
   getAssignmentsForStudent,
   confirmSubmissionForStudent,
   computeOverallProgress,
+  getSubmittedAssignments,
+  getPendingAssignments,
 } from "../utils/assignmentStorage";
 import AssignmentCard from "../components/AssignmentCard";
 import ProgressBar from "../components/ProgressBar";
@@ -48,15 +50,9 @@ export default function StudentDashboard() {
     return false;
   };
 
-  const submitted = assignments.filter((a) =>
-    a.submissions.some(
-      (s) => s.userEmail === user.email && s.submitted === true
-    )
-  );
+  const submittedAssignments = getSubmittedAssignments(assignments, user);
 
-  const notSubmitted = assignments.filter(
-    (a) => !a.submissions.some((s) => s.userEmail === user.email)
-  );
+  const pendingAssignments = getPendingAssignments(assignments, user);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -82,7 +78,7 @@ export default function StudentDashboard() {
           <h3 className="text-xl font-semibold text-gray-700 mb-4">
             Pending Assignments
           </h3>
-          {notSubmitted.length === 0 ? (
+          {pendingAssignments.length === 0 ? (
             <div className="bg-white p-6 rounded-lg shadow text-center text-gray-600">
               <img
                 src={completedImg}
@@ -93,7 +89,7 @@ export default function StudentDashboard() {
             </div>
           ) : (
             <div className="grid gap-4">
-              {notSubmitted.map((a) => (
+              {pendingAssignments.map((a) => (
                 <AssignmentCard
                   key={a.id}
                   assignment={a}
@@ -104,18 +100,17 @@ export default function StudentDashboard() {
           )}
         </section>
 
-        {/* 🔹 Submitted Section */}
         <section>
           <h3 className="text-xl font-semibold text-gray-700 mb-4">
             Submitted Assignments
           </h3>
-          {submitted.length === 0 ? (
+          {submittedAssignments.length === 0 ? (
             <div className="bg-white p-6 rounded-lg shadow text-center text-gray-600">
               You haven't submitted any yet.
             </div>
           ) : (
             <div className="grid gap-4">
-              {submitted.map((a) => (
+              {submittedAssignments.map((a) => (
                 <AssignmentCard
                   key={a.id}
                   assignment={a}

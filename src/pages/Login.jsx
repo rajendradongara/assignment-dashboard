@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { getAllUsers } from "../utils/userStorage.js";
-import { getLoggedInUser } from "../utils/auth.js";
+
+import Navbar from "../components/Navbar";
+import { getLoggedInUser, loginUser } from "../utils/auth.js";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -16,21 +16,14 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const users = getAllUsers();
-    const user = users.find(
-      (u) => u.email === formData.email && u.password === formData.password
-    );
 
-    if (!user) {
-      toast.error("Invalid credentials!");
-      return;
+    const result = loginUser(formData.email, formData.password);
+    if (result.success) {
+      toast.success(`Welcome back ${result.user.name}`);
+      navigate("/");
+    } else {
+      toast.error(result.message);
     }
-
-    localStorage.setItem("user", JSON.stringify(user));
-    toast.success(`Welcome back, ${user.name}!`);
-
-    if (user.role === "student") navigate("/student/dashboard");
-    else if (user.role === "admin") navigate("/admin/dashboard");
   };
 
   return (

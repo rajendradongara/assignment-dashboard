@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import { getAllUsers, saveAllUsers } from "../utils/userStorage.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { getLoggedInUser } from "../utils/auth.js";
+
+import Navbar from "../components/Navbar";
+import { addUser } from "../utils/auth.js";
+import { getLoggedInUser, loginUser } from "../utils/auth.js";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -26,29 +27,20 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const users = getAllUsers();
-    const exists = users.find((u) => u.email === formData.email);
-    if (exists) {
-      toast.error("User already exists");
-      return;
-    }
 
-    if (role === "admin") {
-      const isFaculty = (email) => email?.endsWith("@gotham.edu");
-      if (!isFaculty(user?.email)) {
-        toast.error("Can't register as faculty unless you are an admin");
-        return;
-      }
-    }
     const profile = `https://api.dicebear.com/9.x/avataaars-neutral/svg?seed=${
       user?.name?.charAt(0)?.toUpperCase() || "U"
     }`;
     const newUser = { ...formData, role, profile };
-    users.push(newUser);
-    saveAllUsers(users);
-
-    toast.success(`${role} registered successfully!`);
-    navigate(role === "student" ? "/student/dashboard" : "/admin/dashboard");
+    const result = addUser(newUser);
+    if (result.success) {
+      const userRole = role.charAt(0).toUpperCase() + role.slice(1);
+      toast.success(`${userRole} registration successfull`);
+      loginUser(result.newUser.email, result.newUser.password);
+      navigate("/");
+    } else {
+      toast.error(result.message);
+    }
   };
 
   return (
@@ -56,7 +48,6 @@ const SignUp = () => {
       <Navbar user={user} />
       <div className="flex flex-1 items-center justify-center p-6">
         <div className="w-full max-w-md backdrop-blur-xl bg-white/40 border border-white/30 rounded-2xl shadow-2xl p-8">
-          {/* Toggle Header */}
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-blue-700">
               {role === "student"
