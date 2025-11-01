@@ -170,12 +170,14 @@ export default function AdminDashboard() {
                         {a.description}
                       </p>
                       <p className="text-xs text-gray-400">Due: {a.dueDate}</p>
-                      <a
-                        href={a.driveLink}
-                        className="text-sm text-blue-600 hover:underline inline-block mt-2"
-                      >
-                        Drive Link
-                      </a>
+                      {a.driveLink && (
+                        <a
+                          href={a.driveLink}
+                          className="text-sm text-blue-600 hover:underline inline-block mt-2"
+                        >
+                          Drive Link
+                        </a>
+                      )}
                     </div>
 
                     <button

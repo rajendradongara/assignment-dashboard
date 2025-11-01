@@ -21,8 +21,7 @@ export default function StudentDashboard() {
   const [user, setUser] = useState(null);
   const [assignments, setAssignments] = useState([]);
   const [progress, setProgress] = useState(0);
-  const { uploadedFile } = useFile();
-  console.log(uploadedFile);
+  const { uploadedFile, setUploadedFile } = useFile();
 
   useEffect(() => {
     const u = getLoggedInUser();
@@ -61,6 +60,7 @@ export default function StudentDashboard() {
       if (ok) {
         toast.success("Assignment submitted successfully");
         loadAssignments(user.email);
+        setUploadedFile("");
         return true;
       }
       return false;

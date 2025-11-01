@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { toast } from "sonner";
 
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "./ConfirmationModal.jsx";
 import FileUploadModal from "./FileUploadModal.jsx";
 import { getAllUsers } from "../utils/userStorage.js";
+import { useFile } from "../context/FileContext.js";
 
 export default function AssignmentCard({ assignment, onConfirm }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [upload, setUpload] = useState(false);
+  const { uploadedFile } = useFile();
 
   const { studentSubmission } = assignment;
   const submitted = studentSubmission?.submitted;
@@ -16,7 +18,8 @@ export default function AssignmentCard({ assignment, onConfirm }) {
   const admin = users.find((u) => u.email === assignment.createdBy);
 
   const handleFirstClick = () => {
-    setModalOpen(true);
+    if (uploadedFile) setModalOpen(true);
+    else toast.error("Please upload assignment first.");
   };
 
   const handleConfirm = () => {
