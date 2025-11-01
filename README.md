@@ -1,4 +1,4 @@
-Absolutely, Master Wayne. Here’s a clean, no-fluff **README.md** — human tone, simple, straight to the point. 👇
+
 
 ---
 
@@ -124,11 +124,3 @@ student-assignment-system/
 
 ---
 
-## 🧾 Credits
-
-Developed by **Master Wayne**
-Assisted by **Alfred** 🦇
-
----
-
-Would you like me to make this a downloadable `README.md` file, Bruce?
